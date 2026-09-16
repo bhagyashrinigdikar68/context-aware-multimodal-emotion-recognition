@@ -1,0 +1,20 @@
+# Optional YAML mirror of .env.example. The project reads configuration from
+# environment variables / .env by default (see app/config.py); this file is
+# provided for users who prefer a YAML config and want to load it themselves,
+# e.g.:
+#
+#   import yaml, os
+#   cfg = yaml.safe_load(open("configs/default.yaml"))
+#   for k, v in cfg.items():
+#       os.environ.setdefault(k, str(v))
+#
+# before importing app.config.
+
+DEVICE: auto
+BATCH_SIZE: 8
+MAX_SEQUENCE_LENGTH: 128
+FRAME_RATE: 2
+CONTEXT_WINDOW: 8
+TEXT_MODEL_NAME: roberta-base
+WHISPER_MODEL_SIZE: base
+ALLOW_DEMO_MODE: true

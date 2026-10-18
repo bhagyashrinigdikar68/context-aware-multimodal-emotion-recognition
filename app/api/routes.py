@@ -34,13 +34,14 @@ def health() -> HealthSchema:
 
 @router.post("/analyze", response_model=ConversationAnalysisSchema)
 async def analyze_conversation(file: UploadFile = File(...)) -> ConversationAnalysisSchema:
-    suffix = Path(file.filename).suffix.lower()
+    original_filename = file.filename or ""
+    suffix = Path(original_filename).suffix.lower()
     if suffix not in SUPPORTED_VIDEO_EXTS | {".wav", ".mp3"}:
         raise HTTPException(status_code=400, detail=f"Unsupported file type: {suffix}")
 
     tmp_dir = Path(tempfile.mkdtemp(dir=settings.TMP_DIR))
     try:
-        upload_path = tmp_dir / file.filename
+        upload_path = tmp_dir / f"upload{suffix}"
         with open(upload_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
 
